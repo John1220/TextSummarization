@@ -145,6 +145,7 @@ class PacSumExtractorWithBert(PacSumExtractor):
 
     def _calculate_similarity_matrix(self, x, t, w, x_c, t_c, w_c, pair_indice):
         # doc: a list of sequences, each sequence is a list of words
+        # pair_indice: [((i,j), k), ...]    i th sentence,  j th sentence, k pair count
 
         def pairdown(scores, pair_indice, length):
             # 1 for self score
@@ -162,6 +163,9 @@ class PacSumExtractorWithBert(PacSumExtractor):
         return similarity_matrix
 
     def _generate_score(self, x, t, w, x_c, t_c, w_c):
+        # x input_ids
+        # t token_type_ids
+        # w attention_mask
 
         # score =  log PMI -log k
         scores = torch.zeros(len(x)).cuda()
